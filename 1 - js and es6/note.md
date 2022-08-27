@@ -623,6 +623,20 @@ foo(object.cb); // ??
 object.cb(); // ??
 ```
 
+```js
+const object = {
+  who: 'mason',
+  cb() {
+    function foo() {
+      console.log(`Hello, ${this.who}!`);
+    }
+    foo();
+  },
+};
+
+object.cb(); // ??
+```
+
 ## Common array operations
 
 ### Manipulation
@@ -850,6 +864,42 @@ console.log(cat.getName()); // Fluffy
 
 const { getName } = cat;
 console.log(getName()); // Fluffy
+```
+
+## Asynchronous in JS
+
+JS is single threaded, which means it can only execute one command at a time.
+
+```js
+function foo() {
+  console.log('foo');
+}
+setTimeout(foo, 1000);
+console.log('hello');
+```
+
+```js
+function foo() {
+  console.log('foo');
+}
+function runFor1Sec() {
+  // a for loop or while loop or a heavy computing logic which requires 1 sec to finish
+}
+setTimeout(foo, 1000);
+runFor1Sec();
+console.log('hello');
+```
+
+```js
+function foo() {
+  console.log('foo');
+}
+function runFor1Sec() {
+  // a for loop or while loop or a heavy computing logic which requires 1 sec to finish
+}
+setTimeout(foo, 1000);
+runFor1Sec();
+console.log('hello');
 ```
 
 Quiz questions references
