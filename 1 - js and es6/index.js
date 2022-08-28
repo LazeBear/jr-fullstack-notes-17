@@ -129,3 +129,179 @@ counter = 1;
 counter = '1234';
 
 (function (a, b) {})(1, 2);
+
+const calendar = {
+  currentDay: 6,
+  nextDay() {
+    const cb = function () {
+      this.currentDay++;
+      console.log(this.currentDay);
+    };
+    const bindedCb = cb.bind(this);
+
+    setTimeout(bindedCb);
+  },
+};
+calendar.nextDay();
+
+const calendar1 = {
+  nextDay() {},
+};
+
+const calendar2 = {
+  nextDay: function () {},
+};
+
+const object = {
+  who: 'World',
+
+  // greet() {
+  greet: function () {
+    return `Hello, ${this.who}!`;
+  },
+
+  farewell: () => {
+    return `Goodbye, ${this.who}!`;
+  },
+};
+
+const obj = {};
+obj.farewell = () => {
+  this;
+};
+
+const object = {
+  who: 'mason',
+  cb() {
+    console.log(`Hello, ${this.who}!`);
+  },
+};
+
+function foo(cb) {
+  cb();
+}
+// foo(object.cb); // ??
+const cb = object.cb;
+foo(cb); // ??
+
+const object = {
+  who: 'mason',
+  cb() {
+    const bar = () => {
+      return this;
+    };
+    return bar;
+  },
+};
+
+function foo(cb) {
+  console.log(cb()());
+}
+
+foo(object.cb()); // ??
+
+遍历[('apple', 'pear')];
+// [       ,        ]
+
+fruits.map((fruit) => {
+  // const newFruit = { ...fruit };
+  // newFruit...
+});
+
+（）=> (x) 
+（）=> x 
+
+x => object
+
+
+prototype chain
+
+
+
+线程 | 进程
+thread | process
+
+同步 | 异步
+阻塞 | 非阻塞
+block | non - block
+
+// execution context
+function foo() { // [0ms]
+  console.log('foo');
+}
+function bar() {
+  foo();
+}
+function runFor1Sec() { // [1ms]
+  // a for loop or while loop or a heavy computing logic which requires 1 sec to finish
+  bar();
+}
+setTimeout(foo, 1000); // [2ms]
+runFor1Sec(); // [3ms]
+// 1002ms foo ready to be run
+// 1003ms runFor1Sec done
+console.log('hello'); // [1004ms]
+// 1005ms foo()
+
+/** Memory
+ * foo -> function ref
+ * runFor1Sec -> function ref
+ * 
+ */
+
+/**
+ * Web API (web browser)
+ * timer -> 1s -> foo (function ref)
+ */
+
+/**
+ * Call stack
+ * |              |
+ * |            |
+ * |___________|
+ */
+// event loop
+/**
+ * Callback queue
+ * 
+ */
+
+
+function foo() { // [0ms]
+  console.log('foo');
+}
+function runFor1Sec() { // [1ms]
+  // a for loop or while loop or a heavy computing logic which requires 1 sec to finish
+}
+setTimeout(foo, 0); // [2ms]
+setTimeout(foo, 900); // [3ms]
+runFor1Sec(); // [4ms]
+// [1004ms] runFor1Sec done
+console.log('hello'); // [1005ms]
+// [1006ms] foo()
+// [2003ms] foo()
+
+/** Memory
+ * foo -> function ref
+ * runFor1Sec -> function ref
+ * 
+ */
+
+/**
+ * Web API (web browser)
+ * 
+ * 
+ */
+
+/**
+ * Call stack
+ * |              |
+ * |            |
+ * |___________|
+ */
+// event loop
+/**
+ * Callback queue
+ * foo (2)
+ * foo (1)
+ */
