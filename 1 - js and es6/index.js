@@ -305,3 +305,6 @@ console.log('hello'); // [1005ms]
  * foo (2)
  * foo (1)
  */
+
+// microtasks queue (promise queue)
+// macrotasks queue (setTimeout, setInterval, callback queue)
