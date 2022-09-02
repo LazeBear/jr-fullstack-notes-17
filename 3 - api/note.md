@@ -94,3 +94,8 @@ Restful api 设计规范
 7. 返回 human-readable 的错误信息
    {"error":10001} x
    {"error": "invalid password"}
+
+sequence diagram
+时序图
+
+monolith
