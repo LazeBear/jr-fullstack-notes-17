@@ -1,0 +1,28 @@
+SQL non-SQL
+
+SQL structured query language
+关系型数据库
+
+no-SQL
+not only SQL
+
+SQL
+MySQL
+PostgresQL
+SQLite
+
+non-SQL
+
+document-oriented -> mongodb
+key-value -> redis
+graph-oriented -> neo4j
+column-family -> cassandra
+
+{
+  "id":"xxxx"
+  "name":"xxxx"
+}
+
+BSON - Binary JSON
+
+humongous

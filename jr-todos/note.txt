@@ -1,0 +1,35 @@
+// root level/directory
+
+-- package.json
+-- package-lock.json
+-- .env
+-- config
+-- src
+  |-- index.js 入口文件 (server.js, app.js)
+  |-- routes
+    |-- tasks.js (taskRouter) (tasks.router.js)
+    |-- users.js
+    |-- index.js (把上面的router统一导入，再导出)
+  |-- controllers (逻辑处理)
+    |-- tasks.js (taskController) (task.controller.js)
+    |-- users.js
+  |-- models (数据模型)
+    |-- task.js (Task.js) (task.model.js)
+  |-- middleware
+    |-- cors.js
+    |-- errorMiddleware
+      |-- xxxErrorHandler.js
+  |-- utils
+    |-- db.js
+    | helper function...
+
+
+routes 和 controllers 合并
+services
+
+
+-- src
+  |-- user
+    |-- user.controller.js
+    |-- user.model.js
+  |-- task

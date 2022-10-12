@@ -1,26 +1,54 @@
-const express = require('express');
-const app = express();
-app.use(express.json()); // body-parser
-
 const tasks = [];
 let id = 1;
-// uuid, nanoid
 
-// router
+// yaml, yml
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *    Task:
+ *      type: Object
+ *      required:
+ *        - description
+ *      properties:
+ *        id:
+ *          type: string
+ *          description: auto generated unique identifier
+ *        description:
+ *          type: string
+ *          description: description of the task
+ *        done:
+ *          type: boolean
+ *          description: status of the task
+ *      example:
+ *        id: 1
+ *        description: task 1
+ *        done: false
+ */
 
-// const router = express.Router();
-// app.use('/router', router);
-
-const cors = (req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Headers', '*');
-  res.setHeader('Access-Control-Allow-Methods', '*');
-  next();
-};
-
-app.use(cors);
-
-app.get('/tasks', (req, res) => {
+/**
+ * @swagger
+ * /tasks:
+ *   get:
+ *    summary: return all tasks
+ *    tags: [Tasks]
+ *    parameters:
+ *      - name: description
+ *        in: query
+ *        description: filter tasks by description
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: array of tasks
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/Task'
+ */
+const getAllTasks = (req, res) => {
   const { description } = req.query;
   if (description) {
     const filteredTasks = tasks.filter((task) =>
@@ -30,9 +58,9 @@ app.get('/tasks', (req, res) => {
     return;
   }
   res.json(tasks);
-});
+};
 
-app.get('/tasks/:id', (req, res) => {
+const getTaskById = (req, res) => {
   const { id } = req.params; // id is string
   const task = tasks.find((task) => task.id === Number(id));
   if (!task) {
@@ -41,21 +69,16 @@ app.get('/tasks/:id', (req, res) => {
     return;
   }
   res.json(task);
-});
+};
 
-app.post('/tasks', (req, res) => {
+const addTask = (req, res) => {
   const { description } = req.body;
   const task = { id: id++, description, done: false };
   tasks.push(task);
   res.status(201).json(task);
-});
+};
 
-/**
- * task array [
- *    {id: 1, description: "", done: false}
- * ]
- *  */
-app.put('/tasks/:id', (req, res) => {
+const updateTaskById = (req, res) => {
   const { id } = req.params;
   const { description, done } = req.body;
   const task = tasks.find((task) => task.id === Number(id));
@@ -72,9 +95,9 @@ app.put('/tasks/:id', (req, res) => {
     task.done = !!done;
   }
   res.json(task);
-});
+};
 
-app.delete('/tasks/:id', (req, res) => {
+const deleteTaskById = (req, res) => {
   const { id } = req.params;
   // splice
   const index = tasks.findIndex((task) => task.id === +id);
@@ -86,8 +109,12 @@ app.delete('/tasks/:id', (req, res) => {
   tasks.splice(index, 1);
   // res.status(204).json({ message: 'Task not found' });
   res.sendStatus(204); // no content
-});
+};
 
-app.listen(3000, () => {
-  console.log('server listening on port 3000');
-});
+module.exports = {
+  getAllTasks,
+  getTaskById,
+  updateTaskById,
+  deleteTaskById,
+  addTask,
+};
