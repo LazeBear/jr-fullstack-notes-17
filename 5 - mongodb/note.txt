@@ -26,3 +26,97 @@ column-family -> cassandra
 BSON - Binary JSON
 
 humongous
+
+
+CRUD
+
+Create  
+Read
+Update
+Delete
+增删改查
+
+uuid
+nanoid
+
+
+A, B
+A  B  -> 1:1
+B  A  -> 1:1
+
+A  B  -> 1:M
+B  A  -> 1:1
+
+A  B  -> 1:M
+B  A  -> 1:N
+M:N
+
+[
+  {
+    _id: S1,
+    name: "xx",
+    addresses: [
+      {
+        _id: "A1"
+        city: "brisbane",
+        address:"abc street",
+      },
+      {
+        _id: "A2",
+        city: "sydney",
+        address:"efg street",
+      }
+    ]
+  },
+  {
+    _id: S2,
+    name: "yy",
+    addresses: [
+      {
+        _id: "A1"
+        city: "brisbane",
+        address:"abc street",
+      },
+      {
+        _id: "A2",
+        city: "sydney",
+        address:"efg street",
+      }
+    ]
+  }
+]
+
+
+Sensors
+logs
+
+Sensors
+[
+  {
+    _id:'xx',
+    location: 'xxx',
+  }
+]
+
+logs
+[
+  {
+    _id:'11',
+    temp:21,
+    timestamp: 'xxxx',
+    sensor: 'xx'
+  }
+]
+
+plain
+
+
+users
+students
+teachers
+courses
+
+
+student course M:N
+teacher course M:N
+
