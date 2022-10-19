@@ -5,6 +5,8 @@ const {
   addStudent,
   updateStudentById,
   deleteStudentById,
+  addStudentToCourse,
+  removeStudentFromCourse,
 } = require('../controllers/students');
 
 const studentRouter = Router();
@@ -12,7 +14,10 @@ const studentRouter = Router();
 studentRouter.get('', getAllStudents);
 studentRouter.get('/:id', getStudentById);
 studentRouter.post('', addStudent);
-studentRouter.get('/:id', deleteStudentById);
-studentRouter.delete('/:id', updateStudentById);
+studentRouter.put('/:id', updateStudentById);
+studentRouter.delete('/:id', deleteStudentById);
+// localhost:3000/v1/students      /634a97ab458600d5da2d9d1a/courses/COMP101
+studentRouter.post('/:studentId/courses/:courseId', addStudentToCourse);
+studentRouter.delete('/:studentId/courses/:courseId', removeStudentFromCourse);
 
 module.exports = studentRouter;
