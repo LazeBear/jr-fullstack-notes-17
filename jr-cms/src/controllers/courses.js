@@ -1,16 +1,65 @@
 const Joi = require('joi');
+const DocumentNotFoundError = require('../../errors/DocumentNotFoundError');
 const CourseModel = require('../models/course');
 
-const getAllCourses = async (req, res) => {
+/**
+ * 1. try and catch
+ * try {
+ *    // code
+ * } catch (e) {
+ *    handle error
+ *    next(e); -> error handler
+ *    res.status(400).send()
+ * }
+ * 2. callback
+ *   CourseModel.find((error, res) => {
+ *      if(error) {
+ *        next(e); -> error handler
+ *        res.status(400).send()
+ *      }
+ *      // code
+ *   })
+ * 3. promise
+ *      CourseModel.find().exec().then((res) => {
+ *          // code
+ *        }).catch(error => {
+ *          next(e); -> error handler
+ *          res.status(400).send()
+ *        });
+ */
+
+// function foo() {
+//   // code that maybe async or may throw error
+// }
+
+// currying function
+// function tryCatch(routeHandler) {
+//   return async (req, res, next) => {
+//     try {
+//       await routeHandler(req, res, next);
+//     } catch (e) {
+//       next(e);
+//     }
+//   };
+// }
+
+// tryCatch(routeHandler) -> middleware function
+
+const getAllCourses = async (req, res, next) => {
+  // try {
   const courses = await CourseModel.find().exec();
   res.json(courses);
+  // } catch (e) {
+  //   // next(e)
+  //   res.status(400).json(e);
+  // }
 };
 
-const getCourseById = async (req, res) => {
+const getCourseById = async (req, res, next) => {
   const { id } = req.params;
   const course = await CourseModel.findById(id).exec();
   if (!course) {
-    res.status(404).json({ error: 'Course not found' });
+    next(new DocumentNotFoundError('Course', id));
     return;
   }
   res.json(course);

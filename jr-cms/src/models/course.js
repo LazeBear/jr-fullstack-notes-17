@@ -15,6 +15,7 @@ module.exports = model(
         type: String,
         minLength: 5,
         required: true,
+        unique: true,
       },
       description: {
         type: String,
