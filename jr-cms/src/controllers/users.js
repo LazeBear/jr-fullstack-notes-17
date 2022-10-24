@@ -28,7 +28,8 @@ const login = async (req, res) => {
     res.status(401).json({ error: 'invalid username or password' });
     return;
   }
-  const token = generateToken({ id: user.id, username });
+  // const token = generateToken({ id: user.id, username });
+  const token = generateToken({ id: user.id, username, role: 'teacher' }); // roles: []
   res.json({ username, token });
 };
 

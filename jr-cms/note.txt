@@ -1,0 +1,15 @@
+mywebsite.com
+
+api.mywebsite.com
+
+google
+
+
+
+google register (register mywebsite.com)
+user -> click "login with google" -> new window with google login -> 
+user login with google username and password -> google server will validate user ->
+authorization page -> user click "authorize" -> redirect back to mywebsite.com -> mywebsite.com/google_redirect?token=xxxxxx, send back to api.mywebsite.com -> mywebsite backend get data from google using the token -> ....
+
+Github, facebook, google, wechat, weibo
+OAuth 2.0

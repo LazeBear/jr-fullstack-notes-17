@@ -80,7 +80,7 @@ const addStudentToCourse = async (req, res) => {
   // get student and course id, from route
   const { studentId, courseId } = req.params;
   // find student document and course document with id
-  let student = await StudentModel.findById(studentId).exec();
+  const student = await StudentModel.findById(studentId).exec();
   const course = await CourseModel.findById(courseId).exec();
   // check if student and course exists
   // if (!(student && course))
@@ -89,16 +89,17 @@ const addStudentToCourse = async (req, res) => {
     return;
   }
   // add student to course.students
+  // await CourseModel.findByIdAndUpdate();
   course.students.addToSet(studentId);
   await course.save();
   // add course to student.courses
-  student = await StudentModel.findByIdAndUpdate(
+  const updatedStudent = await StudentModel.findByIdAndUpdate(
     studentId,
     { $addToSet: { courses: courseId } },
     { new: true }
   );
   // return response
-  res.json(student);
+  res.json(updatedStudent);
 };
 
 /**
